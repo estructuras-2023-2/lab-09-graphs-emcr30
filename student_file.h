@@ -62,4 +62,19 @@ vector<string> dividir(const string& str, char delim) {
     return tokens;
 }
 
+string reconstruye(vector<string> carreteras) {
+    vector<Carretera> todasCarreteras;
+    vector<string> todasCiudades;
+    UnionFind uf;
+    set<string> carreterasReconstruir;
 
+    for (const auto& carreteraStr : carreteras) {
+        auto tokens = dividir(carreteraStr, ' ');
+        todasCiudades.push_back(tokens[1]);
+        todasCiudades.push_back(tokens[2]);
+        if (tokens.size() == 4) {
+            todasCarreteras.emplace_back(tokens[0], tokens[1], tokens[2], stoi(tokens[3]));
+        } else {
+            uf.unir(tokens[1], tokens[2]);
+        }
+    }
