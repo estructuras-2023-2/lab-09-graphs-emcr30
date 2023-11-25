@@ -78,3 +78,22 @@ string reconstruye(vector<string> carreteras) {
             uf.unir(tokens[1], tokens[2]);
         }
     }
+
+ for (const auto& carretera : todasCarreteras) {
+        if (!uf.estanConectados(carretera.ciudad1, carretera.ciudad2)) {
+            uf.unir(carretera.ciudad1, carretera.ciudad2);
+            carreterasReconstruir.insert(carretera.id);
+        }
+    }
+
+    if (!uf.todosConectados(todasCiudades)) {
+        return "IMPOSIBLE";
+    }
+
+    string resultado;
+    for (const auto& id : carreterasReconstruir) {
+        resultado += id + " ";
+    }
+
+    return resultado.empty() ? "" : resultado.substr(0, resultado.length() - 1);
+}
